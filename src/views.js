@@ -1,8 +1,8 @@
 import { getTodos, toggleTodo, removeTodo } from "./todos";
 import { getFilters } from "./filters";
+import { todosEl } from './variables';
 
 const renderTodos = () => {
-  const todoEl = document.querySelector("#todos");
   const { searchText, hideCompleted } = getFilters();
   const filteredTodos = getTodos().filter((todo) => {
     const searchTextMatch = todo.text
@@ -14,18 +14,18 @@ const renderTodos = () => {
   });
   const incompleteTodos = filteredTodos.filter((todo) => !todo.completed);
 
-  todoEl.innerHTML = "";
-  todoEl.appendChild(generateSummaryDOM(incompleteTodos));
+  todosEl.innerHTML = "";
+  todosEl.appendChild(generateSummaryDOM(incompleteTodos));
 
   if (filteredTodos.length > 0) {
     filteredTodos.forEach((todo) => {
-      todoEl.appendChild(generateTodoDOM(todo));
+      todosEl.appendChild(generateTodoDOM(todo));
     });
   } else {
     const messageEl = document.createElement("p");
     messageEl.classList.add("empty-message");
     messageEl.textContent = "There are no to-dos to show";
-    todoEl.appendChild(messageEl);
+    todosEl.appendChild(messageEl);
   }
 };
 
